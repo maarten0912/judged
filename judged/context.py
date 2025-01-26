@@ -139,7 +139,7 @@ class MontecarloContext(Context):
             raise JudgedError("Probabilities for partitioning '{}' not set".format(partitioning))
 
     def _ask(self, query):
-        for ext in self.extensions:
+        for ext in self.extensions.values():
             ext._do_before_ask(self)
 
         count = 0
@@ -179,7 +179,7 @@ class MontecarloContext(Context):
 
         result = Result([Answer(a, p(c)) for a, c in answers.items()], iterations=count, error=error())
 
-        for ext in self.extensions:
+        for ext in self.extensions.values():
             ext._do_after_ask(self)
 
         return result
